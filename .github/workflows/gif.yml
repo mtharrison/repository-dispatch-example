@@ -13,4 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "I want to show ${{ github.event.inputs.gif }}!"
+        INPUT="${{ github.event.inputs.gif }}"
+        QUERY="${INPUT// /+}"
+        curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=5"
