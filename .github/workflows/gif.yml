@@ -1,0 +1,16 @@
+name: Gif 
+
+on:
+  workflow_dispatch:
+    inputs:
+      gif:
+        description: 'gif to show'
+        required: true
+        default: 'borat'
+
+jobs:
+  gif:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "I want to show ${{ github.event.inputs.gif }}!"
