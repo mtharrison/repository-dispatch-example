@@ -1,1 +1,1 @@
-# repository-dispatch-example
+# workflow-dispatch-example
