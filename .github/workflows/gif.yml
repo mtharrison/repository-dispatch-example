@@ -22,7 +22,7 @@ jobs:
         RESP=$(curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=1&rating=pg")
         IMAGE_URL=$(echo $RESP | jq -r '.data[0].images.original.url')
         
-        echo "# workflow-dispatch-example\n" > README.md
+        echo "# workflow-dispatch-example" > README.md
         echo "![${INPUT}](${IMAGE_URL})" >> README.md
 
     - name: Git Push
