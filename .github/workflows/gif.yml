@@ -16,15 +16,11 @@ jobs:
     - uses: actions/checkout@v2
       
     - run: |
-        INPUT="${{ github.event.inputs.gif }}"
-        QUERY="${INPUT// /+}"
-        curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=1&rating=pg" > data.json      
-    
-    - run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add data.json
-        git commit -m "update data.json"
-        git push
+        input="${{ github.event.inputs.gif }}"
+        query="${input// /+}"
+        resp=$(curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=1&rating=pg")
+        image_url=$(echo resp | jq -r '.data[0].images.original.url')
         
-        
+        echo "# workflow-dispatch-example\n" > README.md
+        echo "![${input}](${image_url})" >> README.md
+         
