@@ -15,4 +15,7 @@ jobs:
     - run: |
         INPUT="${{ github.event.inputs.gif }}"
         QUERY="${INPUT// /+}"
-        curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=5"
+        RESPONSE=$(curl "http://api.giphy.com/v1/gifs/search?q=${QUERY}&api_key=${{ secrets.GIPHY_API_KEY }}&limit=1&rating=pg")
+        URL=$(echo $RESPONSE | jq -r '.data[0].embed_url')
+        echo $URL
+        
